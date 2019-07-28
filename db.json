@@ -2,5 +2,12 @@
 Login request
 {
   "mobile_number" : "9715049432",
-  "email" : 'omer@mail.com"
+  "email" : "omer@mail.com"
+}
+Login response
+{
+    "status": "success",
+    "message": "An OTP is sent to your email/mobile number",
+    "code": 200,
+    "data": {}
 }
