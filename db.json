@@ -1,1 +1,6 @@
 
+Login request
+{
+  "mobile_number" : "9715049432",
+  "email" : 'omer@mail.com"
+}
