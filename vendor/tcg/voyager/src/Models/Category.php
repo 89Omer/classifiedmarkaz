@@ -5,6 +5,7 @@ namespace TCG\Voyager\Models;
 use Illuminate\Database\Eloquent\Model;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Traits\Translatable;
+use App\Models\SubCategory;
 
 class Category extends Model
 {
@@ -26,5 +27,10 @@ class Category extends Model
     public function parentId()
     {
         return $this->belongsTo(self::class);
+    }
+
+    public function subcategroies()
+    {
+        return $this->belongsTo(Subcategory::class);
     }
 }

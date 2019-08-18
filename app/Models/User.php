@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use UserPost;
 
 class User extends \TCG\Voyager\Models\User implements Authenticatable
 {
@@ -31,4 +32,15 @@ protected $fillable = [
     protected $hidden = [
     'password', 'remember_token',
     ];
+    
+    /**
+     * 
+     * Adding user relations
+     * 
+     */
+
+    public function posts()
+    {
+      return $this->hasMany(UserPost::class);
+    }
 }
