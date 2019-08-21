@@ -24,11 +24,14 @@ Route::prefix('v1')->group(function(){
     Route::post('register', 'Api\AuthController@register');
     Route::post('user/otp', 'Api\AuthController@sendOtp');
     Route::get('user/verify/otp', 'Api\AuthController@verifyOtp');
+    Route::get('search', 'Api\SearchController@index');
+
     //All middleware routes start from here
     Route::group(['middleware' => 'auth:api'], function(){
-        Route::resource('user', 'UserController')->only([
-            'index', 'show'
-        ]);
+        // Route::resource('user', 'UserController')->only([
+        //     'index', 'show'
+        // ]);
+        Route::apiResource('user/post', 'Api\UserPostController');
         Route::post('getUser', 'Api\AuthController@getUser');
     });
 });
