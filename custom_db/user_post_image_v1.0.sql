@@ -1,0 +1,3 @@
+ALTER TABLE `user_post_image`
+	ADD COLUMN `created_at` TIMESTAMP NULL DEFAULT NULL AFTER `image`,
+	ADD COLUMN `updated_at` TIMESTAMP NULL DEFAULT NULL AFTER `created_at`;

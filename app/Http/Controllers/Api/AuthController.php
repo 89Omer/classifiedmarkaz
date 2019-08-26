@@ -101,24 +101,38 @@ public function verifyOtp() {
 }
   
    
-public function login(){ 
+    public function login(){ 
     if(Auth::attempt(['mobile_number' => request('mobile_number'), 'password' => request('mobile_number')])){ 
-    $user = Auth::user();
-    $success['success'] = 'true';
-    $success['message'] =  'Login Successful.';
-    $success['data']['token'] =  $user->createToken('AppName')->accessToken;
-    $success['error'] = 'false';
-        return response()->json(['success' => $success], $this-> successStatus); 
-    } else{ 
-    $error['success'] = 'false';
-    $error['message'] =  'Unauthorised';
-    $error['data']['token'] =  '';
-    $error['error'] = 'true';
-    return response()->json(['error'=> $error], 401); 
-    } 
+        $user = Auth::user();
+        $success['success'] = 'true';
+        $success['message'] =  'Login Successful.';
+        $success['data']['token'] =  $user->createToken('AppName')->accessToken;
+        $success['error'] = 'false';
+            return response()->json(['success' => $success], $this-> successStatus); 
+        } else{ 
+        $error['success'] = 'false';
+        $error['message'] =  'Unauthorised';
+        $error['data']['token'] =  '';
+        $error['error'] = 'true';
+        return response()->json(['error'=> $error], 401); 
+        } 
     }
-  
-public function getUser() {
+
+  /**
+     * Logout user (Revoke the token)
+     *
+     * @return [string] message
+     */
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+        $success['success'] = 'true';
+        $success['message'] =  'Successfully logged out';
+        $success['data'][] = '';
+        $success['error'] = 'false';
+        return response()->json(['data'=>$success], 200);  
+    }
+    public function getUser() {
     $user = Auth::user();
     return response()->json(['success' => $user], $this->successStatus); 
     }

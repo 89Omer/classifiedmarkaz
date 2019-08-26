@@ -178,6 +178,7 @@ class ComposerStaticInitce663d4aa282783e8b8b138ace12e7a2
         ),
         'B' => 
         array (
+            'Bezhanov\\Faker\\' => 15,
             'BeyondCode\\DumpServer\\' => 22,
         ),
         'A' => 
@@ -519,6 +520,10 @@ class ComposerStaticInitce663d4aa282783e8b8b138ace12e7a2
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'Bezhanov\\Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker',
+        ),
         'BeyondCode\\DumpServer\\' => 
         array (
             0 => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src',
@@ -560,7 +565,10 @@ class ComposerStaticInitce663d4aa282783e8b8b138ace12e7a2
         'App\\Http\\Controllers\\Api\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/AuthController.php',
         'App\\Http\\Controllers\\Api\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/PostController.php',
         'App\\Http\\Controllers\\Api\\RatingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/RatingController.php',
+        'App\\Http\\Controllers\\Api\\SearchController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/SearchController.php',
+        'App\\Http\\Controllers\\Api\\SubCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/SubCategoryController.php',
         'App\\Http\\Controllers\\Api\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UserController.php',
+        'App\\Http\\Controllers\\Api\\UserPostController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UserPostController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -575,10 +583,15 @@ class ComposerStaticInitce663d4aa282783e8b8b138ace12e7a2
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Resources\\UserPostResource' => __DIR__ . '/../..' . '/app/Http/Resources/UserPostResource.php',
         'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
+        'App\\Models\\SubCategory' => __DIR__ . '/../..' . '/app/Models/SubCategory.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\UserOTP' => __DIR__ . '/../..' . '/app/Models/UserOTP.php',
         'App\\Models\\UserPost' => __DIR__ . '/../..' . '/app/Models/UserPost.php',
+        'App\\Models\\UserPostAlert' => __DIR__ . '/../..' . '/app/Models/UserPostAlert.php',
+        'App\\Models\\UserPostAttribute' => __DIR__ . '/../..' . '/app/Models/UserPostAttribute.php',
+        'App\\Models\\UserPostImage' => __DIR__ . '/../..' . '/app/Models/UserPostImage.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -609,6 +622,19 @@ class ComposerStaticInitce663d4aa282783e8b8b138ace12e7a2
         'BeyondCode\\DumpServer\\DumpServerServiceProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
         'BeyondCode\\DumpServer\\Dumper' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/Dumper.php',
         'BeyondCode\\DumpServer\\RequestContextProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/RequestContextProvider.php',
+        'Bezhanov\\Faker\\ProviderCollectionHelper' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/ProviderCollectionHelper.php',
+        'Bezhanov\\Faker\\Provider\\Avatar' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Avatar.php',
+        'Bezhanov\\Faker\\Provider\\Commerce' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Commerce.php',
+        'Bezhanov\\Faker\\Provider\\Demographic' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Demographic.php',
+        'Bezhanov\\Faker\\Provider\\Device' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Device.php',
+        'Bezhanov\\Faker\\Provider\\Educator' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Educator.php',
+        'Bezhanov\\Faker\\Provider\\Food' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Food.php',
+        'Bezhanov\\Faker\\Provider\\Medicine' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Medicine.php',
+        'Bezhanov\\Faker\\Provider\\Placeholder' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Placeholder.php',
+        'Bezhanov\\Faker\\Provider\\Science' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Science.php',
+        'Bezhanov\\Faker\\Provider\\Space' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Space.php',
+        'Bezhanov\\Faker\\Provider\\Species' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Species.php',
+        'Bezhanov\\Faker\\Provider\\Team' => __DIR__ . '/..' . '/mbezhanov/faker-provider-collection/src/Faker/Provider/Team.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
         'Carbon\\CarbonInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterface.php',
@@ -5365,6 +5391,7 @@ class ComposerStaticInitce663d4aa282783e8b8b138ace12e7a2
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'TranslationsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TranslationsTableSeeder.php',
+        'UserPostTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UserPostTableSeeder.php',
         'UsersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersTableSeeder.php',
         'VoyagerDatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/VoyagerDatabaseSeeder.php',
         'VoyagerDummyDatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/VoyagerDummyDatabaseSeeder.php',

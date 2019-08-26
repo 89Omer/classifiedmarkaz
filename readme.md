@@ -29,6 +29,9 @@ Use Admin credentials as below
 Username: superadmin@markaz.com
 Password: password
 
+For UserPost Database seed commad
+php artisan db:seed --class=UserPostTableSeeder
+
 
 
 

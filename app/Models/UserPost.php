@@ -32,4 +32,8 @@ class UserPost extends Model
     {
         return $this->hasMany('App\Models\UserPostImage');
     }
+    public function post_view()
+    {
+        return $this->hasMany('App\Models\UserPostView');
+    }
 }

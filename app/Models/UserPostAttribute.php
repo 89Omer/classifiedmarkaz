@@ -8,7 +8,11 @@ class UserPostAttribute extends Model
 {
     protected $table = 'user_post_attribute';
 
-    protected $fillable = ['post_attribute','post_id'];
+    protected $fillable = ['post_attribute','user_post_id'];
+
+    protected $casts = [
+        'post_attribute' => 'array',
+    ];
 
     //
     public function post_attribute()
