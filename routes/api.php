@@ -31,6 +31,7 @@ Route::prefix('v1')->group(function(){
     //All middleware routes start from here
     Route::group(['middleware' => 'auth:api'], function(){
         Route::post('logout', 'Api\AuthController@logout');
+        Route::post('user/edit', 'Api\AuthController@edit');
         //Post AD Routes
         Route::apiResource('user/post', 'Api\UserPostController');
         //User Search Routes

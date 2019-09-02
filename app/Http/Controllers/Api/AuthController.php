@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; 
 use App\Models\User; 
 use App\Models\UserOtp;
+use Exception;
 use Illuminate\Support\Facades\Auth; 
 use Validator;
 class AuthController extends Controller 
@@ -99,26 +100,54 @@ public function verifyOtp() {
             }
 
 }
-  
-   
+  /**
+   * User Login Controller
+   * 
+   */
     public function login(){ 
-    if(Auth::attempt(['mobile_number' => request('mobile_number'), 'password' => request('mobile_number')])){ 
-        $user = Auth::user();
-        $success['success'] = 'true';
-        $success['message'] =  'Login Successful.';
-        $success['data']['token'] =  $user->createToken('AppName')->accessToken;
-        $success['error'] = 'false';
-            return response()->json(['success' => $success], $this-> successStatus); 
-        } else{ 
-        $error['success'] = 'false';
-        $error['message'] =  'Unauthorised';
-        $error['data']['token'] =  '';
-        $error['error'] = 'true';
-        return response()->json(['error'=> $error], 401); 
+        if(Auth::attempt(['mobile_number' => request('mobile_number'), 'password' => request('mobile_number')])){ 
+            $user = Auth::user();
+            $success['success'] = 'true';
+            $success['message'] =  'Login Successful.';
+            $success['data']['token'] =  $user->createToken('AppName')->accessToken;
+            $success['error'] = 'false';
+                return response()->json(['success' => $success], $this-> successStatus); 
+            } else{ 
+            $error['success'] = 'false';
+            $error['message'] =  'Unauthorised';
+            $error['data']['token'] =  '';
+            $error['error'] = 'true';
+            return response()->json(['error'=> $error], 401); 
         } 
     }
+    /**
+     * User Edit profile
+     */
+    public function edit(Request $request){
+        try{
+            $user = User::find(Auth::id());
+           // print_r(Auth::id());die;
 
-  /**
+            $input = $request->all();
+            $user->fill($input)->save();
+
+            $success['success'] = 'true';
+            $success['message'] =  'User Profile updated successfully';
+            $success['data'][] = $user;
+            $success['error'] = 'false';
+            return response()->json(['success'=> $success], 200);
+        }
+        catch(Exception $ex){
+            $error['success'] = 'false';
+            $error['message'] =  $ex->getMessage();
+            $error['data']['token'] =  '';
+            $error['error'] = 'true';
+            return response()->json(['error'=> $error], 401);
+        }
+
+    }
+
+    /**
      * Logout user (Revoke the token)
      *
      * @return [string] message
@@ -132,6 +161,7 @@ public function verifyOtp() {
         $success['error'] = 'false';
         return response()->json(['data'=>$success], 200);  
     }
+
     public function getUser() {
     $user = Auth::user();
     return response()->json(['success' => $user], $this->successStatus); 

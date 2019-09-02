@@ -22,7 +22,8 @@ class User extends \TCG\Voyager\Models\User implements Authenticatable
 * @var array
 */
 protected $fillable = [
-    'name', 'email', 'password','mobile_number'
+    'first_name','last_name','avatar','interest','membership','preferred_language_id',
+    'address','email', 'password','mobile_number'
     ];
     /**
     * The attributes that should be hidden for arrays.

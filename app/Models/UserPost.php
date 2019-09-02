@@ -26,7 +26,7 @@ class UserPost extends Model
     }
     public function post_attribute()
     {
-        return $this->hasMany('App\Models\UserPostAttribute');
+        return $this->hasMany('App\Models\UserPostAttribute','user_post_id');
     }
     public function post_image()
     {

@@ -17,6 +17,6 @@ class UserPostAttribute extends Model
     //
     public function post_attribute()
     {
-        return $this->belongsTo('App\Models\UserPost');
+        return $this->belongsToMany('App\Models\UserPost');
     }
 }
