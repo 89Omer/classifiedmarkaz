@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use TCG\Voyager\Models\Category;
 
 class UserPost extends Model
 {
@@ -35,5 +36,13 @@ class UserPost extends Model
     public function post_view()
     {
         return $this->hasMany('App\Models\UserPostView');
+    }
+    public function post_category()
+    {
+        return $this->hasMany(Category::class,'id');
+    }
+    public function post_subcategory()
+    {
+        return $this->hasMany('App\Models\SubCategory','id');
     }
 }
