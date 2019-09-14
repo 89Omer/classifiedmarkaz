@@ -126,7 +126,6 @@ class VoyagerBaseController extends Controller
         if (view()->exists("voyager::$slug.browse")) {
             $view = "voyager::$slug.browse";
         }
-
         return Voyager::view($view, compact(
             'dataType',
             'dataTypeContent',

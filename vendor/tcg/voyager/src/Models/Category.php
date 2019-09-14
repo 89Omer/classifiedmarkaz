@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Traits\Translatable;
 use App\Models\SubCategory;
+use App\Models\UserPost;
 
 class Category extends Model
 {
@@ -32,5 +33,10 @@ class Category extends Model
     public function subcategroies()
     {
         return $this->belongsTo(Subcategory::class);
+    }
+
+    public function post_category()
+    {
+        return $this->belongsTo(UserPost::class,'category_id');
     }
 }

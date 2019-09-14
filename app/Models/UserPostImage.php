@@ -9,7 +9,7 @@ class UserPostImage extends Model
     //
     protected $table = 'user_post_image';
 
-    protected $fillable = ['image','post_id'];
+    protected $fillable = ['image','user_post_id'];
 
     public function post_image()
     {

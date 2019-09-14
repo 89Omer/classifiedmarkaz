@@ -11,4 +11,9 @@ class Message extends Model
 
     protected $table = 'messages';
 
+    public function message_thread()
+    {
+        return $this->belongsTo('App\Models\MessageThreadData','message_id');
+    }
+
 }

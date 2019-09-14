@@ -51,6 +51,14 @@ class Handler extends ExceptionHandler
                 'error' => 'Resource not found'
             ], 404);
         }
+        if($exception instanceof \Illuminate\Auth\AuthenticationException ){
+            $data['success'] = 'false';
+            $data['message'] =  'Unauthorized.Please Login to proceed';
+            $data['data'] = '';
+            $data['error'] = 'true';
+
+        return response()->json(['error'=>$data], 401); 
+    }
         
         return parent::render($request, $exception);
     }

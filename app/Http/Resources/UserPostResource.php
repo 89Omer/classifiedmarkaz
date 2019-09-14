@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon;
 
 class UserPostResource extends JsonResource
 {
@@ -50,8 +51,8 @@ class UserPostResource extends JsonResource
         ],
         'is_active'=>'no',
         'is_favourtie'=>'no',
-        'created_at' => (string) $this->created_at,
-        'updated_at' => (string) $this->updated_at,
+        'created_at' => (string) Carbon::now(),
+        'updated_at' => (string) Carbon::now(),
       ];
       $success['success'] = 'true';
       $success['message'] =  'Your ad has been recieved. It under process of reveiwing';

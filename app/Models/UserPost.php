@@ -39,10 +39,10 @@ class UserPost extends Model
     }
     public function post_category()
     {
-        return $this->hasMany(Category::class,'id');
+        return $this->belongsTo(Category::class,'category_id');
     }
     public function post_subcategory()
     {
-        return $this->hasMany('App\Models\SubCategory','id');
+        return $this->belongsTo('App\Models\SubCategory','sub_category_id');
     }
 }
