@@ -26,7 +26,7 @@ class SearchController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $q = Input::get('text');
         $q_upper = strtoupper($q);
@@ -37,16 +37,20 @@ class SearchController extends Controller
         }
         try {
             $posts = DB::table('user_posts')
-            ->select('first_name','last_name','name','subcategory_name','user_account_id','post_type','post_title','post_detail','post_attribute','image','is_favourite')
+            ->select('first_name','last_name','name','subcategory_name','user_account_id',
+            'post_type','post_title','post_detail','post_attribute','image','is_favourite','is_featured',
+            'city_name')
             ->join('user_post_attribute', 'user_posts.id', '=', 'user_post_attribute.user_post_id')
-            ->join('user_post_image', 'user_posts.id', '=', 'user_post_image.user_post_id')
-            ->join('user_post_view', 'user_posts.id', '=', 'user_post_view.user_post_id')
+            ->leftjoin('user_post_image', 'user_posts.id', '=', 'user_post_image.user_post_id')
+            ->leftjoin('user_post_view', 'user_posts.id', '=', 'user_post_view.user_post_id')
             ->join('categories', 'user_posts.category_id', '=', 'categories.id')
             ->join('sub_categories', 'user_posts.sub_category_id', '=', 'sub_categories.id')
+            ->join('cities', 'user_posts.location_id', '=', 'cities.id')
             ->join('users', 'user_posts.user_account_id', '=', 'users.id')
-            ->whereRaw("MATCH (post_attribute) AGAINST(? IN NATURAL LANGUAGE MODE)", array($q))
-            ->orWhereRaw("MATCH(post_title,post_detail) AGAINST(? IN NATURAL LANGUAGE MODE)", array($q))
-            ->paginate(25);
+            ->whereRaw("MATCH (post_attribute) AGAINST('$q*' IN BOOLEAN MODE)")
+            ->orWhereRaw("MATCH(post_title,post_detail) AGAINST('$q*' IN BOOLEAN MODE)")
+            ->where('is_featured', $request->is_featured)
+            ->paginate(30);
             
               // //Customize query result
             $posts->getCollection()->transform(function ($value) {
@@ -59,11 +63,12 @@ class SearchController extends Controller
                         'post_attribute'=>json_decode($value->post_attribute),
                         'image'=>$value->image,
                         'is_favourite'=>$value->is_favourite,
+                        'is_featured'=>$value->is_featured,
+                        'location'=>$value->city_name,
                         'user'=>$value->first_name .' '.$value->last_name,
                     ];
                 return $result;
             });
-
             $data['success'] = 'true';
             $data['message'] =  '';
             $data['data'] = $posts->toArray();
@@ -87,21 +92,36 @@ class SearchController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function home()
+    public function home(Request $request)
     {
         $q = Input::get('text');
         try {
+            // $posts = DB::table('user_posts')
+            // ->select('first_name','last_name','name','subcategory_name','user_account_id','post_type','post_title','post_detail','post_attribute','image','is_favourite')
+            // ->join('user_post_attribute', 'user_posts.id', '=', 'user_post_attribute.user_post_id')
+            // ->join('user_post_image', 'user_posts.id', '=', 'user_post_image.user_post_id')
+            // ->join('user_post_view', 'user_posts.id', '=', 'user_post_view.user_post_id')
+            // ->join('categories', 'user_posts.category_id', '=', 'categories.id')
+            // ->join('sub_categories', 'user_posts.sub_category_id', '=', 'sub_categories.id')
+            // ->join('users', 'user_posts.user_account_id', '=', 'users.id')
+            // ->whereRaw("MATCH (post_attribute) AGAINST(? IN NATURAL LANGUAGE MODE)", array($q))
+            // ->orWhereRaw("MATCH(post_title,post_detail) AGAINST(? IN NATURAL LANGUAGE MODE)", array($q))
+            // ->paginate(25);
             $posts = DB::table('user_posts')
-            ->select('first_name','last_name','name','subcategory_name','user_account_id','post_type','post_title','post_detail','post_attribute','image','is_favourite')
+            ->select('first_name','last_name','name','subcategory_name','user_account_id',
+            'post_type','post_title','post_detail','post_attribute','image','is_favourite','is_featured',
+            'city_name')
             ->join('user_post_attribute', 'user_posts.id', '=', 'user_post_attribute.user_post_id')
-            ->join('user_post_image', 'user_posts.id', '=', 'user_post_image.user_post_id')
-            ->join('user_post_view', 'user_posts.id', '=', 'user_post_view.user_post_id')
+            ->leftjoin('user_post_image', 'user_posts.id', '=', 'user_post_image.user_post_id')
+            ->leftjoin('user_post_view', 'user_posts.id', '=', 'user_post_view.user_post_id')
             ->join('categories', 'user_posts.category_id', '=', 'categories.id')
             ->join('sub_categories', 'user_posts.sub_category_id', '=', 'sub_categories.id')
+            ->join('cities', 'user_posts.location_id', '=', 'cities.id')
             ->join('users', 'user_posts.user_account_id', '=', 'users.id')
-            ->whereRaw("MATCH (post_attribute) AGAINST(? IN NATURAL LANGUAGE MODE)", array($q))
-            ->orWhereRaw("MATCH(post_title,post_detail) AGAINST(? IN NATURAL LANGUAGE MODE)", array($q))
-            ->paginate(25);
+            ->whereRaw("MATCH (post_attribute) AGAINST('$q*' IN BOOLEAN MODE)")
+            ->orWhereRaw("MATCH(post_title,post_detail) AGAINST('$q*' IN BOOLEAN MODE)")
+            ->where('is_featured', $request->is_featured)
+            ->paginate(30);
             
               // //Customize query result
             $posts->getCollection()->transform(function ($value) {
@@ -114,6 +134,8 @@ class SearchController extends Controller
                         'post_attribute'=>json_decode($value->post_attribute),
                         'image'=>$value->image,
                         'is_favourite'=>$value->is_favourite,
+                        'is_featured'=>$value->is_featured,
+                        'location'=>$value->city_name,
                         'user'=>$value->first_name .' '.$value->last_name,
                     ];
                 return $result;
@@ -134,7 +156,94 @@ class SearchController extends Controller
                 return response()->json(['error'=>$data],401); 
         }
     }
-    
+    /***
+     * Search by filters
+     * required field
+     */
+    public function filter_by(Request $request)
+    {
+        //$q = explode(',',Input::get('text'));
+        
+        $q = Input::get('text');
+        $low_price = Input::get('low_price');
+              $high_price = Input::get('high_price');
+
+        try {
+            $posts = DB::table('user_posts')
+            ->select('first_name','last_name','name','subcategory_name','user_account_id',
+            'post_type','post_title','post_detail','post_attribute','image','is_favourite','is_featured',
+            'city_name')
+            ->join('user_post_attribute', 'user_posts.id', '=', 'user_post_attribute.user_post_id')
+            ->leftjoin('user_post_image', 'user_posts.id', '=', 'user_post_image.user_post_id')
+            ->leftjoin('user_post_view', 'user_posts.id', '=', 'user_post_view.user_post_id')
+            ->join('categories', 'user_posts.category_id', '=', 'categories.id')
+            ->join('sub_categories', 'user_posts.sub_category_id', '=', 'sub_categories.id')
+            ->join('cities', 'user_posts.location_id', '=', 'cities.id')
+            ->join('users', 'user_posts.user_account_id', '=', 'users.id')
+            ->where('post_type',$request->post_type)
+            ->where('names',$request->category)
+           // ->whereRaw("")
+            //->whereRaw("MATCH (post_attribute) AGAINST('+$q' IN NATURAL LANGUAGE MODE)")
+            //->orWhereRaw("MATCH(post_title,post_detail) AGAINST('+$q' IN NATURAL LANGUAGE MODE)")
+            
+           ->whereBetween(DB::raw("JSON_EXTRACT('post_attribute', '$.price')"),[$low_price,$high_price])
+        //    ->whereRaw("MATCH (post_attribute) AGAINST('+$q' IN NATURAL LANGUAGE MODE)")
+            //->orWhereRaw("MATCH(post_title,post_detail) AGAINST('+$q' IN NATURAL LANGUAGE MODE)")
+            //->paginate(10);
+            ->get();
+            print_r($posts);exit;
+            //$posts = preg_replace('(?<!\d)([1-9]|[12][0-9]|3[01])(?!\d)', '', $q);
+
+           // print_r($posts);exit;
+              // //Customize query result
+            
+
+            //   $filtered = $posts->filter(function ($value, $key) {
+            //     return $value >= '500' && $value <- '1000';
+            // });
+            
+            // $filtered->all();
+
+            $posts->getCollection()->transform(function ($value) {
+             
+                
+               
+                $result =[
+                        'post_type'=>$value->post_type,
+                        'post_title'=>$value->post_title,
+                        'post_detail'=>$value->post_detail,
+                        'category'=>$value->name,
+                        'sub_category'=>$value->subcategory_name,
+                        'post_attribute'=>json_decode($value->post_attribute),
+                        'image'=>$value->image,
+                        'is_favourite'=>$value->is_favourite,
+                        'is_featured'=>$value->is_featured,
+                        'location'=>$value->city_name,
+                        'user'=>$value->first_name .' '.$value->last_name,
+                    ];
+                
+                return $result;
+            });
+            
+            //$tests = preg_match('^|[^0-9])(500|1000)([^0-9]|$' , $posts, $match);
+           // print_r($posts);exit;
+            //$tests = preg_match("/\[(\d+)\]/", $posts, $match);
+            $data['success'] = 'true';
+            $data['message'] =  '';
+            $data['data'] = $posts->toArray();
+            $data['errpreg_grepor'] = 'false';
+
+        return response()->json(['success'=>$data],200); 
+       
+    } catch (Exception $ex) { // Anything that went wrong
+            $data['success'] = 'false';
+                $data['message'] =  '';
+                $data['data'] =  $ex->getMessage();
+                $data['error'] = 'true';    
+                return response()->json(['error'=>$data],401); 
+        }
+    }
+
     /**
      * Fetch user post add search listings
      * 

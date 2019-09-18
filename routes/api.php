@@ -31,6 +31,8 @@ Route::prefix('v1')->group(function(){
     */
         //Guest Search
         Route::get('search', 'Api\SearchController@home');
+        Route::get('filter', 'Api\SearchController@filter_by');
+
         //Random Ads
         Route::get('random', 'Api\UserPostController@random');
         //Category & Sub Category
